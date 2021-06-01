@@ -7,6 +7,7 @@ API construída como mockup para a integração de um sistema de gerenciamento d
 Esta aplicação tem como dependência:
 
 - ExpressJS
+- Nodemon
 
 ## Clonando o repositório
 
