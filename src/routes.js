@@ -43,7 +43,7 @@ const produtos = [
   },
 ];
 
-router.get('/', (req, res) => {
+router.get('/produtos', (req, res) => {
   if (produtos.length > 0) {
     return res.status(200).json(produtos);
   } else {
