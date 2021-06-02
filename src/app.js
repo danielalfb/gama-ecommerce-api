@@ -4,6 +4,7 @@ const routes = require('./routes');
 class App {
   constructor() {
     this.server = express();
+    this.server.use(express.json());
     this.routes();
   }
 
