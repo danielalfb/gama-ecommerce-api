@@ -52,12 +52,12 @@ router.get('/produtos', (req, res) => {
   }
 });
 
-// router.get('/produtos/:id', (req, res) => {
-//   const produtoId = req.params.id;
-//   const produto = produtos.find((c) => c.id === parseInt(produtoId));
-//   if (!produto) res.status(404).json({ err: 'Produto não existe.' });
-//   return res.status(200).json(produto);
-// });
+router.get('/produtos/:id', (req, res) => {
+  //   const produtoId = req.params.id;
+  //   const produto = produtos.find((c) => c.id === parseInt(produtoId));
+  //   if (!produto) res.status(404).json({ err: 'Produto não existe.' });
+  //   return res.status(200).json(produto);
+});
 
 router.post('/produtos', (req, res) => {
   const produto = {
@@ -71,16 +71,22 @@ router.post('/produtos', (req, res) => {
     nome_dept: req.body.nome_dept,
   };
 
+  const { nome, qtd_estoque, disponivel, em_destaque, id_dept, nome_dept } =
+    produto;
+
   if (
-    !produto.nome ||
-    produto.preco === 0 ||
-    !produto.qtd_estoque ||
-    !produto.disponivel ||
-    !produto.em_destaque ||
-    !produto.id_dept ||
-    !produto.nome_dept
+    !nome ||
+    !qtd_estoque ||
+    !disponivel ||
+    !em_destaque ||
+    !id_dept ||
+    !nome_dept
   ) {
-    return res.status(400).json({ err: 'Preenchimento incorreto.' });
+    return res
+      .status(400)
+      .json({ err: 'Preenchimento incorreto, cheque os campos.' });
+  } else if (produto.preco === 0) {
+    return res.status(400).json({ err: 'O preço do produto não pode ser 0.' });
   } else {
     produtos.push(produto);
     return res.status(200).json(produto);
@@ -89,14 +95,14 @@ router.post('/produtos', (req, res) => {
 
 router.put('/produtos/:id', (req, res) => {});
 
-// router.get('/departamentos', (req, res) => {
-//   const departamentos = [];
-//   for (let produto of produtos) {
-//     let departamento = { id: produto.id_dept, nome: produto.nome_dept };
-//     departamentos.push(departamento);
-//   }
-//   return res.status(200).json(departamentos);
-// });
+router.get('/departamentos', (req, res) => {
+  //   const departamentos = [];
+  //   for (let produto of produtos) {
+  //     let departamento = { id: produto.id_dept, nome: produto.nome_dept };
+  //     departamentos.push(departamento);
+  //   }
+  //   return res.status(200).json(departamentos);
+});
 
 router.get('/departamentos/:id', (req, res) => {});
 
