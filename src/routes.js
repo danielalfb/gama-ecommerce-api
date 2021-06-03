@@ -52,12 +52,7 @@ router.get('/produtos', (req, res) => {
   }
 });
 
-router.get('/produtos/:id', (req, res) => {
-  //   const produtoId = req.params.id;
-  //   const produto = produtos.find((c) => c.id === parseInt(produtoId));
-  //   if (!produto) res.status(404).json({ err: 'Produto não existe.' });
-  //   return res.status(200).json(produto);
-});
+router.get('/produtos/:id', (req, res) => {});
 
 router.post('/produtos', (req, res) => {
   const produto = {
