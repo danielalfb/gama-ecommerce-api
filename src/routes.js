@@ -1,4 +1,4 @@
-import { Router } from 'express';
+const { Router } = require('express');
 const router = new Router();
 
 const produtos = [
@@ -41,7 +41,7 @@ const produtos = [
     em_destaque: 1,
     id_dept: 3,
     nome_dept: 'Smartphones',
-  },
+  }
 ];
 
 router.get('/produtos', (req, res) => {
@@ -52,7 +52,14 @@ router.get('/produtos', (req, res) => {
   }
 });
 
-router.get('/produtos/:produtoId', (req, res) => {});//Sávia
+router.get('/produtos/:produtoId', (req, res) => {
+  const produto = produtos.find(c => c.id === parseInt(req.params.produtoId));
+  if (!produto) {
+    return res.status(404).json({message: "Produto não encontrado"});
+  } else {
+    return res.status(200).json(produto);
+  }
+});
 
 router.post('/produtos', (req, res) => {
   const produto = {
@@ -88,10 +95,64 @@ router.post('/produtos', (req, res) => {
   }
 });
 
-router.put('/produtos/:produtoID', (req, res) => {});
+router.put('/produtos/:produtoId', (req, res) => {
+  const produto = produtos.find(p => p.id === parseInt(req.params.produtoId));
+
+    produto.nome = req.body.nome;
+    produto.preco = req.body.preco;
+    produto.qtd_estoque = req.body.qtd_estoque;
+    produto.disponivel = req.body.disponivel;
+    produto.em_destaque = req.body.em_destaque;
+    produto.id_dept = req.body.id_dept;
+    produto.nome_dept = req.body.nome_dept;
+  
+  const { nome, qtd_estoque, disponivel, em_destaque, id_dept, nome_dept } =
+    produto;
+
+  if (
+    !nome ||
+    !qtd_estoque ||
+    !disponivel ||
+    !em_destaque ||
+    !id_dept ||
+    !nome_dept
+  ) {
+    return res
+      .status(400)
+      .json({ err: 'Preenchimento incorreto, cheque os campos.' });
+  } else if (produto.preco === 0) {
+    return res.status(400).json({ err: 'O preço do produto não pode ser 0.' });
+  } else {
+    produtos.push(produto);
+    return res.send(produto);
+  }
+});
 
 router.get('/departamentos', (req, res) => {});
 
-router.get('/departamentos/:departamentoId', (req, res) => {});
+router.get('/departamentos/:departamentoId', (req, res) => {
+  const departamentos = [];
+  const prododutosDepartamento = [];
+  const produtoDpto = produtos.find( p => p.id_dept === parseInt(req.params.departamentoId));
+  for (let produto of produtos) {
+    if(produto.id_dept === parseInt(req.params.departamentoId)){
+      let departamento = { id: produto.id_dept, nome: produto.nome_dept };
+      departamentos.push(departamento);
+      break;
+    }
+  }
+  for (let produto of produtos) {
+    if (produto.id_dept === parseInt(req.params.departamentoId)){
+      let prodDepto = { produto: produto.nome };
+      prododutosDepartamento.push(prodDepto);
+    }
+  }
+  departamentos.push(prododutosDepartamento);
+  if (!produtoDpto) {
+     return res.status(404).json({ message: 'O departamento não existe.'});
+  } else {
+    return res.status(200).json(departamentos);
+  }  
+});
 
-export default router;
+module.exports = router;
