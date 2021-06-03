@@ -41,21 +41,23 @@ const produtos = [
     em_destaque: 1,
     id_dept: 3,
     nome_dept: 'Smartphones',
-  }
+  },
 ];
 
 router.get('/produtos', (req, res) => {
   if (produtos.length > 0) {
     return res.status(200).json(produtos);
   } else {
-    return res.status(404).json({ message: 'Nenhum produto cadastrado.' });
+    return res.status(404).json({ err: 'Nenhum produto cadastrado.' });
   }
 });
 
 router.get('/produtos/:produtoId', (req, res) => {
-  const produto = produtos.find(c => c.id === parseInt(req.params.produtoId));
+  const produto = produtos.find(
+    (element) => element.id === parseInt(req.params.produtoId),
+  );
   if (!produto) {
-    return res.status(404).json({message: "Produto não encontrado"});
+    return res.status(404).json({ err: 'Produto não encontrado.' });
   } else {
     return res.status(200).json(produto);
   }
@@ -87,7 +89,7 @@ router.post('/produtos', (req, res) => {
     return res
       .status(400)
       .json({ err: 'Preenchimento incorreto, cheque os campos.' });
-  } else if (produto.preco === 0) {
+  } else if (produto.preco === 0 || !produto.preco) {
     return res.status(400).json({ err: 'O preço do produto não pode ser 0.' });
   } else {
     produtos.push(produto);
@@ -96,16 +98,20 @@ router.post('/produtos', (req, res) => {
 });
 
 router.put('/produtos/:produtoId', (req, res) => {
-  const produto = produtos.find(p => p.id === parseInt(req.params.produtoId));
+  const produto = produtos.find((p) => p.id === parseInt(req.params.produtoId));
 
-    produto.nome = req.body.nome;
-    produto.preco = req.body.preco;
-    produto.qtd_estoque = req.body.qtd_estoque;
-    produto.disponivel = req.body.disponivel;
-    produto.em_destaque = req.body.em_destaque;
-    produto.id_dept = req.body.id_dept;
-    produto.nome_dept = req.body.nome_dept;
-  
+  if (!produto) {
+    return res.status(404).json({ err: 'Produto não existe.' });
+  }
+
+  produto.nome = req.body.nome;
+  produto.preco = req.body.preco;
+  produto.qtd_estoque = req.body.qtd_estoque;
+  produto.disponivel = req.body.disponivel;
+  produto.em_destaque = req.body.em_destaque;
+  produto.id_dept = req.body.id_dept;
+  produto.nome_dept = req.body.nome_dept;
+
   const { nome, qtd_estoque, disponivel, em_destaque, id_dept, nome_dept } =
     produto;
 
@@ -120,39 +126,53 @@ router.put('/produtos/:produtoId', (req, res) => {
     return res
       .status(400)
       .json({ err: 'Preenchimento incorreto, cheque os campos.' });
-  } else if (produto.preco === 0) {
+  } else if (produto.preco === 0 || !produto.preco) {
     return res.status(400).json({ err: 'O preço do produto não pode ser 0.' });
   } else {
     produtos.push(produto);
-    return res.send(produto);
+    return res.status(200).json(produto);
   }
 });
 
-router.get('/departamentos', (req, res) => {});
+router.get('/departamentos', (req, res) => {
+  const departamentos = [];
+  for (let produto of produtos) {
+    let departamento = { id: produto.id_dept, nome: produto.nome_dept };
+    departamentos.push(departamento);
+  }
+  if (departamentos.length < 0) {
+    return res
+      .status(404)
+      .json({ err: 'Não existem departamentos cadastrados.' });
+  }
+  return res.status(200).json(departamentos);
+});
 
 router.get('/departamentos/:departamentoId', (req, res) => {
   const departamentos = [];
   const prododutosDepartamento = [];
-  const produtoDpto = produtos.find( p => p.id_dept === parseInt(req.params.departamentoId));
+  const produtoDpto = produtos.find(
+    (p) => p.id_dept === parseInt(req.params.departamentoId),
+  );
   for (let produto of produtos) {
-    if(produto.id_dept === parseInt(req.params.departamentoId)){
+    if (produto.id_dept === parseInt(req.params.departamentoId)) {
       let departamento = { id: produto.id_dept, nome: produto.nome_dept };
       departamentos.push(departamento);
       break;
     }
   }
   for (let produto of produtos) {
-    if (produto.id_dept === parseInt(req.params.departamentoId)){
+    if (produto.id_dept === parseInt(req.params.departamentoId)) {
       let prodDepto = { produto: produto.nome };
       prododutosDepartamento.push(prodDepto);
     }
   }
   departamentos.push(prododutosDepartamento);
   if (!produtoDpto) {
-     return res.status(404).json({ message: 'O departamento não existe.'});
+    return res.status(404).json({ err: 'O departamento não existe.' });
   } else {
     return res.status(200).json(departamentos);
-  }  
+  }
 });
 
 module.exports = router;
