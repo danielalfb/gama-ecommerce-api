@@ -95,14 +95,7 @@ router.post('/produtos', (req, res) => {
 
 router.put('/produtos/:id', (req, res) => {});
 
-router.get('/departamentos', (req, res) => {
-  //   const departamentos = [];
-  //   for (let produto of produtos) {
-  //     let departamento = { id: produto.id_dept, nome: produto.nome_dept };
-  //     departamentos.push(departamento);
-  //   }
-  //   return res.status(200).json(departamentos);
-});
+router.get('/departamentos', (req, res) => {});
 
 router.get('/departamentos/:id', (req, res) => {});
 
