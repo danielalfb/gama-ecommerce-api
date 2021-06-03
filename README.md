@@ -199,7 +199,7 @@ Nenhum
 
 ### **Parâmetro de requisição no BODY**
 
-```json
+```
 {
   "nome": STRING,
   "preco": INT,
@@ -317,7 +317,7 @@ Recebe um JSON com dados de um produto, cujo ID é especificado na URL e atualiz
 
 ### **Parâmetro de requisição no BODY**
 
-```json
+```
 {
   "nome": STRING,
   "preco": INT,
