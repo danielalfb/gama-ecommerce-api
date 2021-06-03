@@ -45,11 +45,11 @@ Retorna a lista de todos os produtos existentes.
 
 `/produtos`
 
-### **Requisição**
-
-`/produtos`
-
 ### **Resposta de sucesso**
+
+- Requisição:
+
+  `/produtos`
 
 - Status:
 
@@ -106,6 +106,10 @@ Retorna a lista de todos os produtos existentes.
 
 Dispara caso o array de Produtos esteja vazio.
 
+- Requisição:
+
+  `/produtos`
+
 - Status:
 
   ![Status da requisicao](https://img.shields.io/badge/-404%20NOT%20FOUND-red)
@@ -136,11 +140,11 @@ Retorna os detalhes de 1 único produto.
 
 Nenhum
 
-### **Requisição**
-
-`/produtos/1`
-
 ### **Resposta de sucesso**
+
+- Requisição:
+
+  `/produtos/1`
 
 - Status:
 
@@ -161,11 +165,11 @@ Nenhum
   }
   ```
 
-### **Requisição**
-
-`/produtos/10`
-
 ### **Resposta de erro**
+
+- Requisição:
+
+  `/produtos/10`
 
 - Status:
 
@@ -197,17 +201,31 @@ Nenhum
 
 ```json
 {
-  "nome": "Smartphone Asus Zenfone 6, 256GB",
-  "preco": 3869,
-  "qtd_estoque": 7,
-  "disponivel": 1,
-  "em_destaque": 0,
-  "id_dept": 3,
-  "nome_dept": "Smartphones"
+  "nome": STRING,
+  "preco": INT,
+  "qtd_estoque": INT,
+  "disponivel": 1 || 0,
+  "em_destaque": 1 || 0,
+  "id_dept": INT,
+  "nome_dept": STRING
 }
 ```
 
 ### **Resposta de sucesso**
+
+- Requisição:
+
+  ```json
+  {
+    "nome": "Smartphone Asus Zenfone 6, 256GB",
+    "preco": 3869,
+    "qtd_estoque": 7,
+    "disponivel": 1,
+    "em_destaque": 0,
+    "id_dept": 3,
+    "nome_dept": "Smartphones"
+  }
+  ```
 
 - Status:
 
@@ -228,21 +246,21 @@ Nenhum
   }
   ```
 
-### **Resposta de erro**
+### **Respostas de erro**
 
-### **Parâmetro de requisição no BODY**
+- Requisição:
 
-```json
-{
-  "nome": "Smartphone Asus Zenfone 6, 256GB",
-  "preco": 0,
-  "qtd_estoque": 7,
-  "disponivel": 1,
-  "em_destaque": 0,
-  "id_dept": 3,
-  "nome_dept": "Smartphones"
-}
-```
+  ```json
+  {
+    "nome": "Smartphone Asus Zenfone 6, 256GB",
+    "preco": 0,
+    "qtd_estoque": 7,
+    "disponivel": 1,
+    "em_destaque": 0,
+    "id_dept": 3,
+    "nome_dept": "Smartphones"
+  }
+  ```
 
 - Status:
 
@@ -256,20 +274,20 @@ Nenhum
   }
   ```
 
-### **_OU_**
+  #### **_OU_**
 
-```json
-{
-  "preco": 3869,
-  "qtd_estoque": 7,
-  "disponivel": 1,
-  "em_destaque": 1,
-  "id_dept": 3,
-  "nome_dept": "Smartphones"
-}
-```
+- Requisição:
 
-### **Resposta de erro**
+  ```json
+  {
+    "preco": 3869,
+    "qtd_estoque": 7,
+    "disponivel": 1,
+    "em_destaque": 1,
+    "id_dept": 3,
+    "nome_dept": "Smartphones"
+  }
+  ```
 
 - Status:
 
@@ -295,23 +313,41 @@ Recebe um JSON com dados de um produto, cujo ID é especificado na URL e atualiz
 
 ### **Parâmetro de requisição na URL**
 
-`/produto/1`
+`id=[INTEGER]`
 
 ### **Parâmetro de requisição no BODY**
 
 ```json
 {
-  "nome": "SSD Kingston A400, 480GB",
-  "preco": 309,
-  "qtd_estoque": 20,
-  "disponivel": 1,
-  "em_destaque": 1,
-  "id_dept": 1,
-  "nome_dept": "Hardware"
+  "nome": STRING,
+  "preco": INT,
+  "qtd_estoque": INT,
+  "disponivel": 1 || 0,
+  "em_destaque": 1 || 0,
+  "id_dept": INT,
+  "nome_dept": STRING
 }
 ```
 
 ### **Resposta de sucesso**
+
+- Requisição na URL:
+
+  `/produtos/1`
+
+- Requisição no BODY:
+
+  ```json
+  {
+    "nome": "SSD Kingston A400, 480GB",
+    "preco": 309,
+    "qtd_estoque": 20,
+    "disponivel": 1,
+    "em_destaque": 1,
+    "id_dept": 1,
+    "nome_dept": "Hardware"
+  }
+  ```
 
 - Status:
 
@@ -332,11 +368,11 @@ Recebe um JSON com dados de um produto, cujo ID é especificado na URL e atualiz
   }
   ```
 
-### **Resposta de erro**
+### **Respostas de erro**
 
-### **Parâmetro de requisição na URL**
+- Requisição na URL:
 
-`/produto/10`
+  `/produtos/10`
 
 - Status:
 
@@ -350,20 +386,24 @@ Recebe um JSON com dados de um produto, cujo ID é especificado na URL e atualiz
   }
   ```
 
-### **_OU_**
+  #### **_OU_**
 
-### **Parâmetro de requisição no BODY**
+- Requisição na URL:
 
-```json
-{
-  "nome": "SSD Kingston A400, 480GB",
-  "preco": 309,
-  "disponivel": 1,
-  "em_destaque": 1,
-  "id_dept": 1,
-  "nome_dept": "Hardware"
-}
-```
+  `/produtos/1`
+
+- Requisição no BODY:
+
+  ```json
+  {
+    "nome": "SSD Kingston A400, 480GB",
+    "preco": 309,
+    "disponivel": 1,
+    "em_destaque": 1,
+    "id_dept": 1,
+    "nome_dept": "Hardware"
+  }
+  ```
 
 - Status:
 
@@ -377,21 +417,25 @@ Recebe um JSON com dados de um produto, cujo ID é especificado na URL e atualiz
   }
   ```
 
-### **_OU_**
+  #### **_OU_**
 
-### **Parâmetro de requisição no BODY**
+- Requisição na URL:
 
-```json
-{
-  "nome": "SSD Kingston A400, 480GB",
-  "preco": 0,
-  "qtd_estoque": 20,
-  "disponivel": 1,
-  "em_destaque": 1,
-  "id_dept": 1,
-  "nome_dept": "Hardware"
-}
-```
+  `/produtos/1`
+
+- Requisição no BODY:
+
+  ```json
+  {
+    "nome": "SSD Kingston A400, 480GB",
+    "preco": 0,
+    "qtd_estoque": 20,
+    "disponivel": 1,
+    "em_destaque": 1,
+    "id_dept": 1,
+    "nome_dept": "Hardware"
+  }
+  ```
 
 - Status:
 
@@ -415,11 +459,11 @@ Retorna a lista de todos os departamentos existentes.
 
 `/departamentos`
 
-### **Requisição**
-
-`/departamentos`
-
 ### **Resposta de sucesso**
+
+- Requisição:
+
+  `/departamentos`
 
 - Status:
 
@@ -474,15 +518,19 @@ Retorna o departamento e a lista de produtos que estão associadas a ele.
 
 `/departamentos/{id}`
 
+### **Parâmetro de requisição na URL**
+
+`id=[INTEGER]`
+
 ### **Parâmetro de requisição no BODY**
 
 Nenhum
 
-### **Parâmetro de requisição na URL**
-
-`/departamentos/2`
-
 ### **Resposta de sucesso**
+
+- Requisição:
+
+  `/departamentos/2`
 
 - Status:
 
@@ -509,9 +557,9 @@ Nenhum
 
 ### **Resposta de erro**
 
-### **Parâmetro de requisição na URL**
+- Requisição:
 
-`/departamentos/2`
+  `/departamentos/12`
 
 - Status:
 
