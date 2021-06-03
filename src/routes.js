@@ -1,4 +1,4 @@
-const { Router } = require('express');
+import { Router } from 'express';
 const router = new Router();
 
 const produtos = [
@@ -52,7 +52,7 @@ router.get('/produtos', (req, res) => {
   }
 });
 
-router.get('/produtos/:id', (req, res) => {});
+router.get('/produtos/:produtoId', (req, res) => {});//Sávia
 
 router.post('/produtos', (req, res) => {
   const produto = {
@@ -88,10 +88,10 @@ router.post('/produtos', (req, res) => {
   }
 });
 
-router.put('/produtos/:id', (req, res) => {});
+router.put('/produtos/:produtoID', (req, res) => {});
 
 router.get('/departamentos', (req, res) => {});
 
-router.get('/departamentos/:id', (req, res) => {});
+router.get('/departamentos/:departamentoId', (req, res) => {});
 
-module.exports = router;
+export default router;

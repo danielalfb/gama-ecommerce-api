@@ -25,7 +25,7 @@ $ git clone https://github.com/danielalfb/gama-ecommerce-api.git
 
 ## Executando a aplicação
 
-    INSERIR
+    npm start
 
 # REST API
 
