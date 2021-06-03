@@ -60,21 +60,51 @@ Retorna a lista de todos os produtos existentes.
   ```json
   [
     {
-      "produto": 1
+      "id": 1,
+      "nome": "SSD Kingston A400, 480GB",
+      "preco": 409.9,
+      "qtd_estoque": 70,
+      "disponivel": 1,
+      "em_destaque": 1,
+      "id_dept": 1,
+      "nome_dept": "Hardware"
     },
     {
-      "produto": 2
+      "id": 2,
+      "nome": "Fone de Ouvido Sem Fio Sennheiser HD450BT",
+      "preco": 989,
+      "qtd_estoque": 10,
+      "disponivel": 1,
+      "em_destaque": 0,
+      "id_dept": 2,
+      "nome_dept": "Audio"
     },
     {
-      "produto": 3
+      "id": 3,
+      "nome": "Fone de Ouvido JBL In Ear, Preto, JBLC50HIBLK",
+      "preco": 39,
+      "qtd_estoque": 30,
+      "disponivel": 1,
+      "em_destaque": 0,
+      "id_dept": 2,
+      "nome_dept": "Audio"
     },
     {
-      "produto": 4
+      "id": 4,
+      "nome": "Smartphone Xiaomi Redmi 9, 64GB",
+      "preco": 1429.9,
+      "qtd_estoque": 5,
+      "disponivel": 1,
+      "em_destaque": 1,
+      "id_dept": 3,
+      "nome_dept": "Smartphones"
     }
   ]
   ```
 
 ### **Resposta de erro**
+
+Dispara caso o array de Produtos esteja vazio.
 
 - Status:
 
@@ -84,7 +114,7 @@ Retorna a lista de todos os produtos existentes.
 
   ```json
   {
-    "error": "Não existem produtos cadastrados."
+    "err": "Nenhum produto cadastrado."
   }
   ```
 
@@ -119,19 +149,21 @@ Nenhum
 - Conteúdo:
 
   ```json
-  [
-    {
-      "id": 1,
-      "nome": "Nome do produto",
-      "preco": 5.0,
-      "qtd_estoque": 10,
-      "disponivel": 1,
-      "em_destaque": 0,
-      "id_dept": 1,
-      "nome_dept": "Nome do departamento"
-    }
-  ]
+  {
+    "id": 1,
+    "nome": "SSD Kingston A400, 480GB",
+    "preco": 409.9,
+    "qtd_estoque": 70,
+    "disponivel": 1,
+    "em_destaque": 1,
+    "id_dept": 1,
+    "nome_dept": "Hardware"
+  }
   ```
+
+### **Requisição**
+
+`/produtos/10`
 
 ### **Resposta de erro**
 
@@ -143,25 +175,7 @@ Nenhum
 
   ```json
   {
-    "error": "O produto não existe."
-  }
-  ```
-
-### **Requisição**
-
-`/produtos/id=2`
-
-### **Resposta**
-
-- Status:
-
-  ![Status da requisicao](https://img.shields.io/badge/-400%20BAD%20REQUEST-red)
-
-- Conteúdo:
-
-  ```json
-  {
-    "error": "Requisição incorreta."
+    "err": "Produto não encontrado."
   }
   ```
 
@@ -183,13 +197,13 @@ Nenhum
 
 ```json
 {
-  "nome": "Nome do produto",
-  "preco": 5.0,
-  "qtd_estoque": 10,
+  "nome": "Smartphone Asus Zenfone 6, 256GB",
+  "preco": 3869,
+  "qtd_estoque": 7,
   "disponivel": 1,
   "em_destaque": 0,
-  "id_dept": 1,
-  "nome_dept": "Nome do departamento"
+  "id_dept": 3,
+  "nome_dept": "Smartphones"
 }
 ```
 
@@ -202,19 +216,58 @@ Nenhum
 - Conteúdo:
 
   ```json
-  [
-    {
-      "id": 1,
-      "nome": "Nome do produto",
-      "preco": 5.0,
-      "qtd_estoque": 10,
-      "disponivel": 1,
-      "em_destaque": 0,
-      "id_dept": 1,
-      "nome_dept": "Nome do departamento"
-    }
-  ]
+  {
+    "id": 5,
+    "nome": "Smartphone Asus Zenfone 6, 256GB",
+    "preco": 3869,
+    "qtd_estoque": 7,
+    "disponivel": 1,
+    "em_destaque": 1,
+    "id_dept": 3,
+    "nome_dept": "Smartphones"
+  }
   ```
+
+### **Resposta de erro**
+
+### **Parâmetro de requisição no BODY**
+
+```json
+{
+  "nome": "Smartphone Asus Zenfone 6, 256GB",
+  "preco": 0,
+  "qtd_estoque": 7,
+  "disponivel": 1,
+  "em_destaque": 0,
+  "id_dept": 3,
+  "nome_dept": "Smartphones"
+}
+```
+
+- Status:
+
+  ![Status da requisicao](https://img.shields.io/badge/-400%20BAD%20REQUEST-red)
+
+- Conteúdo:
+
+  ```json
+  {
+    "error": "O preço do produto não pode ser 0."
+  }
+  ```
+
+### **_OU_**
+
+```json
+{
+  "preco": 3869,
+  "qtd_estoque": 7,
+  "disponivel": 1,
+  "em_destaque": 1,
+  "id_dept": 3,
+  "nome_dept": "Smartphones"
+}
+```
 
 ### **Resposta de erro**
 
@@ -226,7 +279,7 @@ Nenhum
 
   ```json
   {
-    "error": ""
+    "err": "Preenchimento incorreto, cheque os campos."
   }
   ```
 
@@ -242,19 +295,19 @@ Recebe um JSON com dados de um produto, cujo ID é especificado na URL e atualiz
 
 ### **Parâmetro de requisição na URL**
 
-`id=[INTEGER]`
+`/produto/1`
 
 ### **Parâmetro de requisição no BODY**
 
 ```json
 {
-  "nome": "",
-  "preco": ,
-  "qtd_estoque": ,
-  "disponivel": ,
-  "em_destaque": ,
-  "id_dept": ,
-  "nome_dept": ""
+  "nome": "SSD Kingston A400, 480GB",
+  "preco": 309,
+  "qtd_estoque": 20,
+  "disponivel": 1,
+  "em_destaque": 1,
+  "id_dept": 1,
+  "nome_dept": "Hardware"
 }
 ```
 
@@ -267,20 +320,23 @@ Recebe um JSON com dados de um produto, cujo ID é especificado na URL e atualiz
 - Conteúdo:
 
   ```json
-  [
-    {
-      "nome": "",
-      "preco": ,
-      "qtd_estoque": ,
-      "disponivel": ,
-      "em_destaque": ,
-      "id_dept": ,
-      "nome_dept": ""
-    }
-  ]
+  {
+    "id": 1,
+    "nome": "SSD Kingston A400, 480GB",
+    "preco": 309,
+    "qtd_estoque": 20,
+    "disponivel": 1,
+    "em_destaque": 1,
+    "id_dept": 1,
+    "nome_dept": "Hardware"
+  }
   ```
 
 ### **Resposta de erro**
+
+### **Parâmetro de requisição na URL**
+
+`/produto/10`
 
 - Status:
 
@@ -290,11 +346,24 @@ Recebe um JSON com dados de um produto, cujo ID é especificado na URL e atualiz
 
   ```json
   {
-    "error": "Produto não existe."
+    "err": "Produto não existe."
   }
   ```
 
-  #### **OU**
+### **_OU_**
+
+### **Parâmetro de requisição no BODY**
+
+```json
+{
+  "nome": "SSD Kingston A400, 480GB",
+  "preco": 309,
+  "disponivel": 1,
+  "em_destaque": 1,
+  "id_dept": 1,
+  "nome_dept": "Hardware"
+}
+```
 
 - Status:
 
@@ -304,7 +373,35 @@ Recebe um JSON com dados de um produto, cujo ID é especificado na URL e atualiz
 
   ```json
   {
-    "error": ""
+    "err": "Preenchimento incorreto, cheque os campos."
+  }
+  ```
+
+### **_OU_**
+
+### **Parâmetro de requisição no BODY**
+
+```json
+{
+  "nome": "SSD Kingston A400, 480GB",
+  "preco": 0,
+  "qtd_estoque": 20,
+  "disponivel": 1,
+  "em_destaque": 1,
+  "id_dept": 1,
+  "nome_dept": "Hardware"
+}
+```
+
+- Status:
+
+  ![Status da requisicao](https://img.shields.io/badge/-400%20BAD%20REQUEST-red)
+
+- Conteúdo:
+
+  ```json
+  {
+    "err": "O preço do produto não pode ser 0."
   }
   ```
 
@@ -333,25 +430,27 @@ Retorna a lista de todos os departamentos existentes.
   ```json
   [
     {
-      "id_dept": 1,
-      "nome": "Nome do departamento"
+      "id": 1,
+      "nome": "Hardware"
     },
     {
-      "id_dept": 2,
-      "nome": "Nome do departamento"
+      "id": 2,
+      "nome": "Audio"
     },
     {
-      "id_dept": 3,
-      "nome": "Nome do departamento"
+      "id": 2,
+      "nome": "Audio"
     },
     {
-      "id_dept": 4,
-      "nome": "Nome do departamento"
+      "id": 3,
+      "nome": "Smartphones"
     }
   ]
   ```
 
 ### **Resposta de erro**
+
+Dispara caso o array de Departamentos esteja vazio.
 
 - Status:
 
@@ -361,7 +460,7 @@ Retorna a lista de todos os departamentos existentes.
 
   ```json
   {
-    "error": "Não existem departamentos cadastrados."
+    "err": "Não existem departamentos cadastrados."
   }
   ```
 
@@ -375,17 +474,13 @@ Retorna o departamento e a lista de produtos que estão associadas a ele.
 
 `/departamentos/{id}`
 
-### **Parâmetro de requisição na URL**
-
-`id=[INTEGER]`
-
 ### **Parâmetro de requisição no BODY**
 
 Nenhum
 
-### **Requisição**
+### **Parâmetro de requisição na URL**
 
-`/departamentos/1`
+`/departamentos/2`
 
 ### **Resposta de sucesso**
 
@@ -398,29 +493,25 @@ Nenhum
   ```json
   [
     {
-      "id": 1,
-      "nome": "Nome do produto",
-      "preco": 5.0,
-      "qtd_estoque": 10,
-      "disponivel": 1,
-      "em_destaque": 0,
-      "id_dept": 1,
-      "nome_dept": "Nome do departamento"
-    },
-    {
       "id": 2,
-      "nome": "Nome do produto 2",
-      "preco": 6.0,
-      "qtd_estoque": 11,
-      "disponivel": 1,
-      "em_destaque": 1,
-      "id_dept": 1,
-      "nome_dept": "Nome do departamento"
-    }
+      "nome": "Audio"
+    },
+    [
+      {
+        "produto": "Fone de Ouvido Sem Fio Sennheiser HD450BT"
+      },
+      {
+        "produto": "Fone de Ouvido JBL In Ear, Preto, JBLC50HIBLK"
+      }
+    ]
   ]
   ```
 
 ### **Resposta de erro**
+
+### **Parâmetro de requisição na URL**
+
+`/departamentos/2`
 
 - Status:
 
@@ -430,6 +521,6 @@ Nenhum
 
   ```json
   {
-    "error": "O departamento não existe."
+    "err": "O departamento não existe."
   }
   ```
