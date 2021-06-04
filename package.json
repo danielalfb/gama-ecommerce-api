@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/danielalfb/gama-ecommerce-api.git"
   },
-  "author": "Daniela Barbosa, Lara Iasmine, Sávia Lima",
+  "author": "Daniela Barbosa, Lara Iasmine",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/danielalfb/gama-ecommerce-api/issues"
