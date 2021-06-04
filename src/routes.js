@@ -53,9 +53,7 @@ router.get('/produtos', (req, res) => {
 });
 
 router.get('/produtos/:produtoId', (req, res) => {
-  const produto = produtos.find(
-    (element) => element.id === parseInt(req.params.produtoId),
-  );
+  const produto = produtos.find((p) => p.id === parseInt(req.params.produtoId));
   if (!produto) {
     return res.status(404).json({ err: 'Produto não encontrado.' });
   } else {
