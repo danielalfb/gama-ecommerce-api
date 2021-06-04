@@ -8,6 +8,7 @@ Esta aplicação tem como dependência:
 
 - ExpressJS
 - Nodemon
+- Sucrase
 
 ## Clonando o repositório
 
@@ -25,7 +26,7 @@ $ git clone https://github.com/danielalfb/gama-ecommerce-api.git
 
 ## Executando a aplicação
 
-    npm start
+    npm run dev
 
 # REST API
 

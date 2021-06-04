@@ -1,4 +1,5 @@
-const { Router } = require('express');
+// const { Router } = require('express');
+import { Router } from 'express';
 const router = new Router();
 
 const produtos = [
@@ -173,4 +174,4 @@ router.get('/departamentos/:departamentoId', (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
